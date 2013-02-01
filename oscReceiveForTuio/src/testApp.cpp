@@ -17,6 +17,7 @@ void testApp::setup(){
 	ofBackground(0,0,0);
 	
 	ofEnableAlphaBlending();
+	ofSetFullscreen(true);
 
 	
 	lastFrame = 0;
