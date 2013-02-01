@@ -23,5 +23,7 @@ public:
 	
 	bool update();
 	void draw();
+	
+	void colorTemp(int k, int &r, int &g, int &b);
 };
 
