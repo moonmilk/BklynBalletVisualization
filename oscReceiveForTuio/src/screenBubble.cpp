@@ -50,6 +50,7 @@ bool screenBubble::update()
 
 void screenBubble::draw()
 {	
+	ofSetColor(255,255,255,255*exp(fade*age));
 	ofFill();
 	ofCircle(x, y, radius*exp(fade*age));
 }

@@ -14,7 +14,9 @@ void testApp::setup(){
 	mouseY = 0;
 	mouseButtonState = "";
 
-	ofBackground(30, 30, 130);
+	ofBackground(0,0,0);
+	
+	ofEnableAlphaBlending();
 
 	
 	lastFrame = 0;
