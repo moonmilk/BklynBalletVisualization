@@ -7,14 +7,15 @@
  *
  */
 
+#include "time.h"
 class screenItem {
 public:
 	screenItem(float, float);
-	
+
 	float x, y;
 	float dx, dy;
-	int age;
-	
+	double age;
+    timespec birth;
 	bool update();
 	void draw();
 };
