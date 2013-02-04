@@ -54,6 +54,7 @@ void testApp::update(){
 			
 			if (cursors.find(tc.s)==cursors.end()) msg_string += "NEW ";
 			cursors[tc.s] = tc;
+			// TODO: THROW AWAY EXPIRED CURSORS!
 			
 			msg_string += ofToString(tc.s) + ": " + ofToString((int)(1024*tc.x)) + ", " + ofToString((int)(768*tc.y));
 			
@@ -122,12 +123,12 @@ void testApp::update(){
 
 void testApp::makeBubble(float x, float y){
 	screenBubble b(x * ofGetWindowWidth(), y * ofGetWindowHeight());
-	bubbles.push_back(b);
+	bubbles.push_front(b);
 }
 
 void testApp::makeBubble(float x, float y, float dx, float dy){
 	screenBubble b(x * ofGetWindowWidth(), y * ofGetWindowHeight(), dx * ofGetWindowWidth(), dy * ofGetWindowHeight());
-	bubbles.push_back(b);
+	bubbles.push_front(b);
 }
 
 
