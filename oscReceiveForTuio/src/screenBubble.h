@@ -8,7 +8,6 @@
  */
 
 #include "screenItem.h"
-
 #include "ofMain.h"
 
 class screenBubble: screenItem
@@ -16,14 +15,14 @@ class screenBubble: screenItem
 public:
 	screenBubble(float, float);
 	screenBubble(float, float, float, float);
-	
+
 	float radius;
 	bool flingable;
-	
-	
+
+
 	bool update();
 	void draw();
-	
+
 	void colorTemp(int k, int &r, int &g, int &b);
 };
 

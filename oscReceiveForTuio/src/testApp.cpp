@@ -15,11 +15,11 @@ void testApp::setup(){
 	mouseButtonState = "";
 
 	ofBackground(0,0,0);
-	
+
 	ofEnableAlphaBlending();
 	ofSetFullscreen(true);
 
-	
+
 	lastFrame = 0;
 }
 
@@ -38,10 +38,10 @@ void testApp::update(){
 		// get the next message
 		ofxOscMessage m;
 		receiver.getNextMessage(&m);
-		
+
 		if (m.getAddress() == "/tuio/2Dcur" && m.getNumArgs()==7 && m.getArgType(0)==OFXOSC_TYPE_STRING && m.getArgAsString(0)=="set"){
 			tuioCursor tc;
-			
+
 			tc.s = m.getArgAsInt32(1);
 			tc.x = m.getArgAsFloat(2);
 			tc.y = m.getArgAsFloat(3);
@@ -49,37 +49,37 @@ void testApp::update(){
 			tc.dy = m.getArgAsFloat(5);
 			tc.m = m.getArgAsFloat(6);
 			tc.age = 0;
-			
+
 			string msg_string;
-			
+
 			if (cursors.find(tc.s)==cursors.end()) msg_string += "NEW ";
 			cursors[tc.s] = tc;
-			
+
 			msg_string += ofToString(tc.s) + ": " + ofToString((int)(1024*tc.x)) + ", " + ofToString((int)(768*tc.y));
-			
+
 			msg_strings[current_msg_string] = msg_string;
 			timers[current_msg_string] = ofGetElapsedTimef() + 5.0f;
 			current_msg_string = (current_msg_string + 1) % NUM_MSG_STRINGS;
 			// clear the next line
 			msg_strings[current_msg_string] = "";
-			
+
 			makeBubble(tc.x, tc.y, tc.dx, tc.dy);
 
 		}
-		
+
 		else if (m.getAddress() == "/tuio/2Dcur" && m.getNumArgs()==2 && m.getArgType(0)==OFXOSC_TYPE_STRING && m.getArgAsString(0)=="fseq"){
 			lastFrame = m.getArgAsInt32(1);
-			
+
 			msg_strings[current_msg_string] = "FRAME " + ofToString(lastFrame);
-			
-			
-			
+
+
+
 			timers[current_msg_string] = ofGetElapsedTimef() + 5.0f;
 			current_msg_string = (current_msg_string + 1) % NUM_MSG_STRINGS;
 			// clear the next line
-			msg_strings[current_msg_string] = "";		
+			msg_strings[current_msg_string] = "";
 		}
-		
+
 		else{
 			// unrecognized message: display on the bottom of the screen
 			string msg_string;
@@ -111,10 +111,10 @@ void testApp::update(){
 			// clear the next line
 			msg_strings[current_msg_string] = "";
 		}
-		
+
 
 	}
-	
+
 	updateBubbles();
 }
 
@@ -136,11 +136,12 @@ void testApp::updateBubbles()
 	list<screenBubble>::iterator i;
 	for (i=bubbles.begin(); i != bubbles.end(); ++i)
 	{
-		if (! i->update()) bubbles.erase(i);
+		if (! i->update())
+            i=bubbles.erase(i);
 	}
-	
-	
-	
+
+
+
 }
 
 
@@ -173,7 +174,7 @@ void testApp::drawBubbles()
 	for (i=bubbles.begin(); i != bubbles.end(); ++i)
 	{
 		i->draw();
-	}	
+	}
 }
 
 //--------------------------------------------------------------
