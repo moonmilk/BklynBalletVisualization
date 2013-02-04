@@ -12,7 +12,7 @@
 
 #define randf(LO, HI) (LO + (float)rand()/((float)RAND_MAX/(HI-LO)))
 
-#define fade (-0.9)
+#define fade (-0.5)
 #define gravity (0.02)
 
 

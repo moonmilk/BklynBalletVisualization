@@ -9,7 +9,7 @@
 
 #include "screenItem.h"
 screenItem::screenItem(float _x, float _y) {
-	clock_gettime(CLOCK_REALTIME,&birth);
+	birth=ofGetElapsedTimeMicros();
 	age = 0.0;
 	x = _x;
 	y = _y;
@@ -18,9 +18,8 @@ screenItem::screenItem(float _x, float _y) {
 }
 
 bool screenItem::update() {
-	timespec now;
-	clock_gettime(CLOCK_REALTIME,&now);
+	unsigned long long now;
+	now=ofGetElapsedTimeMicros();
 
-	age=now.tv_sec-birth.tv_sec;
-	age=age + ((double)(now.tv_nsec-birth.tv_nsec)/1000000000.0);
+	age=((double)(now-birth)/1000000.0);
 }

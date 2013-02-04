@@ -7,7 +7,8 @@
  *
  */
 
-#include "time.h"
+#include "ofMain.h"
+
 class screenItem {
 public:
 	screenItem(float, float);
@@ -15,7 +16,7 @@ public:
 	float x, y;
 	float dx, dy;
 	double age;
-    timespec birth;
+    unsigned long long birth;
 	bool update();
 	void draw();
 };
