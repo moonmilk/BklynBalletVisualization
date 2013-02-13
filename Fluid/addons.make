@@ -1,0 +1,3 @@
+ofxMSACore
+ofxMSAFluid
+ofxOsc

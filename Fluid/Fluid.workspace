@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Fluid">
+		<Project filename="../../../../../../../nvermeer-nocrypt/Projects/OpenFrameworks/of_v0073_linux64_release/apps/myApps/Fluid/Fluid.cbp" active="1">
+			<Depends filename="../../../../../../../nvermeer-nocrypt/Projects/OpenFrameworks/of_v0073_linux64_release/libs/openFrameworksCompiled/project/linux64/libopenFrameworks.cbp" />
+		</Project>
+		<Project filename="../../../../../../../nvermeer-nocrypt/Projects/OpenFrameworks/of_v0073_linux64_release/libs/openFrameworksCompiled/project/linux64/libopenFrameworks.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>
