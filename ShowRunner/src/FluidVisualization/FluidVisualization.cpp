@@ -1,12 +1,8 @@
 #include "FluidVisualization.h"
 
-char sz[] = "[Rd9?-2XaUP0QY[hO%9QTYQ`-W`QZhcccYQY[`b";
-
 
 //--------------------------------------------------------------
 void FluidVisualization::setup() {
-	for(unsigned int i=0; i<strlen(sz); i++) sz[i] += 20;
-
 	// setup fluid stuff
 	fluidSolver.setup(100, 100);
     fluidSolver.enableRGB(true).setFadeSpeed(0.002).setDeltaT(0.5).setVisc(0.000015).setColorDiffusion(0.00001);
@@ -19,10 +15,6 @@ void FluidVisualization::setup() {
     colorMult           = 1.0;
     velocityMult        = 10.0;
 	ofSetVerticalSync(false);
-
-#ifdef USE_TUIO
-	tuioClient.start(3333);
-#endif
 
 
 #ifdef USE_GUI
@@ -57,6 +49,9 @@ void FluidVisualization::setup() {
 	ofSetBackgroundAuto(false);
 }
 
+void FluidVisualization::reset(){
+    fluidSolver.reset();
+}
 
 void FluidVisualization::fadeToColor(float r, float g, float b, float speed) {
     glColor4f(r, g, b, speed);
@@ -77,7 +72,7 @@ void FluidVisualization::addToFluid(ofVec2f pos, ofVec2f vel, bool addColor, boo
 //			Color drawColor(CM_HSV, (getElapsedFrames() % 360) / 360.0f, 1, 1);
 			ofColor drawColor;
 			//drawColor.setHsb((ofGetFrameNum() % 255), 255, 255);
-			drawColor.setHsb(0, 0, 55);
+			drawColor.setHsb(0, 0, 128);
 
 			fluidSolver.addColorAtIndex(index, drawColor * colorMult);
 
@@ -130,11 +125,6 @@ void FluidVisualization::draw(){
 	if(drawParticles)
 		particleSystem.updateAndDraw(fluidSolver, ofGetWindowSize(), drawFluid);
 
-	//ofDrawBitmapString(sz, 50, 50);
-
-#ifdef USE_GUI
-	gui.draw();
-#endif
 }
 
 

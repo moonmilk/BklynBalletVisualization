@@ -22,4 +22,5 @@ bool screenItem::update() {
 	now=ofGetElapsedTimeMicros();
 
 	age=((double)(now-birth)/1000000.0);
+    return true;
 }
