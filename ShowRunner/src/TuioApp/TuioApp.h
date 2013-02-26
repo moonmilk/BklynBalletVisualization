@@ -6,6 +6,8 @@
 
 #include "tuioCursor.h"
 #include <algorithm>
+#include <string>
+
 typedef map<int,tuioCursor> cursorMap;
 class TuioApp : public ofBaseApp
 {

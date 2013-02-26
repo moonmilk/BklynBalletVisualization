@@ -1,13 +1,18 @@
 #include "CrossVisualization.h"
 
-
-
+#include <iostream>
 
 //--------------------------------------------------------------
 void CrossVisualization::setup(){
 
 }
-
+void CrossVisualization::reset(){
+    colorH=25;
+    colorS=100;
+    colorB=100;
+    xalpha=255;
+    yalpha=255;
+}
 //--------------------------------------------------------------
 void CrossVisualization::update(){
 
@@ -40,9 +45,23 @@ void CrossVisualization::updateCrosses()
 		if (! i->update())
             i=crosses.erase(i);
 	}
-
-
-
+}
+void CrossVisualization::handleOscMessage(ofxOscMessage m){
+    string address = m.getAddress();
+    const string crossColorHS = "/showrunner/cross/colorhs";
+    const string crossColorB = "/showrunner/cross/colorb";
+    const string crossXAlpha = "/showrunner/cross/xalpha";
+    const string crossYAlpha = "/showrunner/cross/yalpha";
+    if(address == crossYAlpha){
+        yalpha=m.getArgAsFloat(0)*255;
+    }else if(address == crossXAlpha){
+        xalpha=m.getArgAsFloat(0)*255;
+    }else if(address == crossColorHS){
+        colorH=m.getArgAsFloat(0)*255;
+        colorS=m.getArgAsFloat(1)*255;
+    }else if(address == crossColorB){
+        colorB= m.getArgAsFloat(0)*255;
+    }
 }
 
 
@@ -74,6 +93,12 @@ void CrossVisualization::drawCrosses()
 	list<screenCross>::iterator i;
 	for (i=crosses.begin(); i != crosses.end(); ++i)
 	{
+		i->colorH=colorH;
+		i->colorS=colorS;
+		i->colorB=colorB;
+        i->xalpha=xalpha;
+        i->yalpha=yalpha;
+        //cout << i->drawColor << endl;
 		i->draw();
 	}
 }
