@@ -199,7 +199,9 @@ void FluidVisualization::handleOscMessage(ofxOscMessage m){
     }else if(address == fluidForce){
         force=(m.getArgAsFloat(0) == 1);
     }else if(address == fluidReset){
-        force=(m.getArgAsFloat(0) == 1);
+        if (m.getArgAsFloat(0) == 1){
+            fluidSolver.reset();
+        }
     }else if(address == fluidColorHS){
         colorH=m.getArgAsFloat(0)*255;
         colorS=m.getArgAsFloat(1)*255;

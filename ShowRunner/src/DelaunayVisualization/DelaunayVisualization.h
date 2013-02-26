@@ -32,7 +32,11 @@ class DelaunayVisualization : public TuioApp{
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
 		void windowResized(int w, int h);
-		void updateTuioPoints(cursorMap input_tuioCursors);
+        void updateTuioPoints(cursorMap input_tuioCursors);
+        void handleOscMessage(ofxOscMessage m);
+        int colorH;
+        int colorS;
+        int colorB;
 
 };
 

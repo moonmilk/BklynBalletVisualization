@@ -2,11 +2,20 @@
 
 //--------------------------------------------------------------
 void DelaunayVisualization::setup(){
-
-
-	//ofSetFrameRate(60);
-
-
+	colorH=0;
+	colorS=0;
+	colorB=80;
+}
+void DelaunayVisualization::handleOscMessage(ofxOscMessage m){
+    string address = m.getAddress();
+    const string delaunayColorHS = "/showrunner/delaunay/colorhs";
+    const string delaunayColorB = "/showrunner/delaunay/colorb";
+    if(address == delaunayColorHS){
+        colorH=m.getArgAsFloat(0)*255;
+        colorS=m.getArgAsFloat(1)*255;
+    }else if(address == delaunayColorB){
+        colorB= m.getArgAsFloat(0)*255;
+    }
 }
 
 
@@ -88,7 +97,8 @@ void DelaunayVisualization::update(){
 //--------------------------------------------------------------
 void DelaunayVisualization::draw(){
 	ofBackground(0,0,0);
-	ofSetColor(80,80,80);
+	ofColor drawColor = ofColor::fromHsb(colorH,colorS,colorB);
+	ofSetColor(drawColor);
 	ofNoFill();
 	triangulator.draw();
 }
