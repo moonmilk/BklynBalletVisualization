@@ -7,8 +7,8 @@ void CrossVisualization::setup(){
 
 }
 void CrossVisualization::reset(){
-    colorH=25;
-    colorS=100;
+    colorH=100;
+    colorS=0;
     colorB=100;
     xalpha=255;
     yalpha=255;
@@ -27,12 +27,12 @@ void CrossVisualization::update(){
 
 
 void CrossVisualization::makeCross(float x, float y){
-	screenCross b(x * ofGetWindowWidth(), y * ofGetWindowHeight());
+	screenCross b(x * ofGetViewportWidth(), y * ofGetViewportHeight());
 	crosses.push_back(b);
 }
 
 void CrossVisualization::makeCross(float x, float y, float dx, float dy){
-	screenCross b(x * ofGetWindowWidth(), y * ofGetWindowHeight(), dx * ofGetWindowWidth(), dy * ofGetWindowHeight());
+	screenCross b(x * ofGetViewportWidth(), y * ofGetViewportHeight(), dx * ofGetViewportWidth(), dy * ofGetViewportHeight());
 	crosses.push_back(b);
 }
 

@@ -112,7 +112,7 @@ void ShowRunner::handleOscMessage(ofxOscMessage m){
         int index=m.getArgAsFloat(0);
         if (index >= 0 && index < static_cast<int>(Visuals.size())){
             visualIndex=index;
-            Visuals[visualIndex]->reset();
+            //Visuals[visualIndex]->reset();
             ofEnableAlphaBlending();
             ofEnableSmoothing();
         }

@@ -23,14 +23,19 @@ public:
 	void fadeToColor(float r, float g, float b, float speed);
 	void addToFluid(ofVec2f pos, ofVec2f vel, bool addColor, bool addForce);
 	void gotMessage(ofMessage msg);
-
+    void handleOscMessage(ofxOscMessage m);
     float                   colorMult;
     float                   velocityMult;
 	int                     fluidCellsX;
 	bool                    resizeFluid;
 	bool                    drawFluid;
 	bool                    drawParticles;
-
+    bool                    ink;
+    bool                    force;
+    bool                    flame;
+    int                     colorH;
+    int                     colorS;
+    int                     colorB;
 	msa::fluid::Solver      fluidSolver;
 	msa::fluid::DrawerGl	fluidDrawer;
 

@@ -51,6 +51,12 @@ void FluidVisualization::setup() {
 
 void FluidVisualization::reset(){
     fluidSolver.reset();
+    colorH = 0;
+    colorS = 0;
+    colorB = 128;
+    force = true;
+    ink = true;
+    flame = false;
 }
 
 void FluidVisualization::fadeToColor(float r, float g, float b, float speed) {
@@ -72,7 +78,7 @@ void FluidVisualization::addToFluid(ofVec2f pos, ofVec2f vel, bool addColor, boo
 //			Color drawColor(CM_HSV, (getElapsedFrames() % 360) / 360.0f, 1, 1);
 			ofColor drawColor;
 			//drawColor.setHsb((ofGetFrameNum() % 255), 255, 255);
-			drawColor.setHsb(0, 0, 128);
+			drawColor.setHsb(colorH, colorS, colorB);
 
 			fluidSolver.addColorAtIndex(index, drawColor * colorMult);
 
@@ -99,11 +105,13 @@ void FluidVisualization::update(){
         ofVec2f Pos=ofVec2f(tc.x,tc.y);
         ofVec2f Vel=ofVec2f(tc.dx,tc.dy)*0.05;
 
-        addToFluid(Pos, Vel,true,true);
+        addToFluid(Pos, Vel,ink,force);
     }
-    //ofVec2f Pos = ofVec2f(0.5, 1);
-	//ofVec2f Vel = ofVec2f(ofRandom(-0.005,0.005),-0.01);
-	//addToFluid(Pos, Vel, true, true);
+    if(flame){
+        ofVec2f Pos = ofVec2f(0.5, 1);
+        ofVec2f Vel = ofVec2f(ofRandom(-0.005,0.005),-0.01);
+        addToFluid(Pos, Vel, true, true);
+    }
     /*Pos = ofVec2f(0.25, 1);
 	Vel = ofVec2f(ofRandom(-0.005,0.005)-0.005,-0.1);
 	addToFluid(Pos, Vel, true, true);
@@ -175,7 +183,30 @@ void FluidVisualization::keyPressed  (int key){
     }
 }
 
+void FluidVisualization::handleOscMessage(ofxOscMessage m){
+    string address = m.getAddress();
+    const string fluidColorHS = "/showrunner/fluid/colorhs";
+    const string fluidColorB = "/showrunner/fluid/colorb";
+    const string fluidInk = "/showrunner/fluid/ink";
+    const string fluidFlame = "/showrunner/fluid/flame";
+    const string fluidForce = "/showrunner/fluid/force";
+    const string fluidReset = "/showrunner/fluid/reset";
 
+    if(address == fluidFlame){
+        flame=(m.getArgAsFloat(0) == 1);
+    }else if(address == fluidInk){
+        ink=(m.getArgAsFloat(0) == 1);
+    }else if(address == fluidForce){
+        force=(m.getArgAsFloat(0) == 1);
+    }else if(address == fluidReset){
+        force=(m.getArgAsFloat(0) == 1);
+    }else if(address == fluidColorHS){
+        colorH=m.getArgAsFloat(0)*255;
+        colorS=m.getArgAsFloat(1)*255;
+    }else if(address == fluidColorB){
+        colorB= m.getArgAsFloat(0)*255;
+    }
+}
 //--------------------------------------------------------------
 void FluidVisualization::mouseMoved(int x, int y){
 	//ofVec2f eventPos = ofVec2f(x, y);

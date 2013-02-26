@@ -37,6 +37,7 @@ screenCross::screenCross(float _x, float _y, float _dx, float _dy) : screenItem(
 		dx = randf(-0.1,0.1);
 		dy = randf(-0.02,0.02);
 	}
+	margin = randf(0,100);
 }
 
 // update returns false if it's time to die
@@ -64,11 +65,10 @@ void screenCross::draw()
 	//ofSetColor(r, g, b, (flingable?30:50)*exp(fade*age));
 	ofNoFill();
 	ofSetLineWidth(1);
-	ofColor drawColor;
-	drawColor.fromHsb(colorH,colorS,colorB);
-	ofSetColor(drawColor,xalpha*exp(fade*age));
+	ofColor drawColor = ofColor::fromHsb(colorH,colorS,colorB);
+	ofSetColor(drawColor,static_cast<int>(xalpha*exp(fade*age)));
 	ofLine(margin, y-tilt, ofGetViewportWidth()-margin, y+tilt);
-	ofSetColor(drawColor,yalpha*exp(fade*age));
+	ofSetColor(drawColor,static_cast<int>(yalpha*exp(fade*age)));
 	ofLine(x+tilt, margin, x-tilt, ofGetViewportHeight()-margin);
 
 }
